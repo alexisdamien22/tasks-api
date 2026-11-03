@@ -21,10 +21,11 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
-          cache: "pip"
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - run: pytest --cov=app --cov-report=xml --cov-fail-under=80
       - uses: actions/upload-artifact@v7
         if: matrix.python-version == '3.12'
         with:
           name: coverage-report
-      - run: pip install -r requirements-dev.txt
-      - run: pytest --cov=app --cov-report=xml --cov-fail-under=80
+          path: coverage.xml
