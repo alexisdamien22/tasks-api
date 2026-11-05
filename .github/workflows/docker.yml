@@ -92,7 +92,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - env:
           VERSION: ${{ needs.build.outputs.release_tag }}
-        run: docker run -d -p 8000:8000 --name tasks-api --rm ghcr.io/${{ github.repository_owner }}/tasks-api:${{ steps.vars.outputs.version }}
+        run: docker run -d -p 8000:8000 --name tasks-api --rm $IMAGE:${GITHUB_REF_NAME#v}
       - run: |
           for i in $(seq 1 10); do
             curl -fs http://localhost:8000/health && break
