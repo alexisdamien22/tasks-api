@@ -102,7 +102,7 @@ jobs:
           curl -f http://localhost:8000/version
 
   update-config:
-    needs: deploy-productions
+    needs: deploy-production
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     env:
